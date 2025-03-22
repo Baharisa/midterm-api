@@ -26,3 +26,16 @@ RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
 EXPOSE 80
 CMD ["apache2-foreground"]
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy your app files into container
+COPY . .
+
+# Install dependencies (like vlucas/phpdotenv)
+RUN composer install
+
