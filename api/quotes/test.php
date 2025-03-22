@@ -1,2 +1,2 @@
 <?php
-echo json_encode(["message" => "Quotes folder is working"]);
+echo json_encode(["message" => "Render can see quotes folder!"]);
