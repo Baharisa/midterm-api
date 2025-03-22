@@ -1,21 +1,19 @@
- # Use an official PHP runtime as base image
 FROM php:8.1-apache
 
-# Install necessary extensions for PostgreSQL
+RUN apt-get update && apt-get install -y libpq-dev
 RUN docker-php-ext-install pdo pdo_pgsql
 
-# Enable Apache mod_rewrite
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 
-# Set the working directory inside the container
-WORKDIR /var/www/html
+# Add custom Apache virtual host config
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Copy all files from the project into the container
+WORKDIR /var/www/html
 COPY . .
 
-# Expose port 80 for the web server
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
+
 EXPOSE 80
-
-# Start Apache when the container starts
 CMD ["apache2-foreground"]
-
