@@ -1,2 +1,1 @@
-<?php
-echo json_encode(["message" => "Render can see quotes folder!"]);
+<?php echo "✅ I am alive"; ?>
