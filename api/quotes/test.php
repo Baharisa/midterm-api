@@ -1,1 +1,1 @@
-<?php echo "✅ I am alive"; ?>
+"<?php echo 'Quotes API Test ?'; ?>" 
